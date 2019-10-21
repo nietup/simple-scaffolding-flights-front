@@ -32,7 +32,7 @@ class App extends Component {
                 <Navbar fluid>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="#">jOOQ Flights</a>
+                            <a href="#">simplescaffolding Flights</a>
                         </Navbar.Brand>
                         <Button
                             bsStyle="primary"
