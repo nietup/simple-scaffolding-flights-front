@@ -48,7 +48,7 @@ class Passenger extends Component {
 
         const headers = {headers: {Authorization: `Bearer ${getAccessToken()}`}};
 
-        axios.post(`${API_URL}/passengers`, payload, headers)
+        axios.post(`${API_URL}/passenger`, payload, headers)
             .then(response => console.log("Great success"))
             .catch(error => ToastsStore.error(((error.response || {}).data || {}).message));
     };

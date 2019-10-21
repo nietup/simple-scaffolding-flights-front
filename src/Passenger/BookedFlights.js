@@ -13,12 +13,12 @@ class BookedFlights extends Component {
 
         if (!userProfile) {
             getProfile((err, profile) => {
-                axios.get(`${API_URL}/passengers/${profile.sub}/flights`)
+                axios.get(`${API_URL}/passenger/${profile.sub}/flights`)
                     .then(response => this.setState({response: response.data}))
                     .catch(error => this.setState({message: error.message}));
             });
         } else {
-            axios.get(`${API_URL}/passengers/${userProfile.sub}/flights`)
+            axios.get(`${API_URL}/passenger/${userProfile.sub}/flights`)
                 .then(response => this.setState({response: response.data}))
                 .catch(error => this.setState({message: error.message}));
         }

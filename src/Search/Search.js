@@ -12,13 +12,13 @@ class Search extends Component {
     }
 
     handleSubmit = (values, actions) => {
-        // axios.post(`${API_URL}/flight-search`, {
+        // axios.post(`${API_URL}/flight/search`, {
         //     "sourceCity": values.startCity,
         //     "destinationCity": values.destinationCity,
         //     "startTime": values.startDate + "T" + values.startTime + "+00:00",
         //     "timeRange": values.timeRange
         // })
-        axios.post(`${API_URL}/flight-search`, {
+        axios.post(`${API_URL}/flight/search`, {
             "sourceCity": "Warsawabab",
             "destinationCity": "Dubai",
             "startTime": "2019-09-19T15:00:00+02:00",
