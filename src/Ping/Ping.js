@@ -17,7 +17,6 @@ class Ping extends Component {
     securedPing() {
         const {getAccessToken} = this.props.auth;
         const headers = {'Authorization': `Bearer ${getAccessToken()}`};
-        console.log(headers);
         const AuthStr = 'Bearer '.concat(getAccessToken());
         axios.get(`${API_URL}/private`, {headers: {Authorization: `Bearer ${getAccessToken()}`}})
             .then(response => this.setState({message: response.data.message}))
