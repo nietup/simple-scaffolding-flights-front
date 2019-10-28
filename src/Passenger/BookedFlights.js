@@ -5,7 +5,7 @@ import {API_URL} from "../constants";
 class BookedFlights extends Component {
     constructor(props) {
         super(props);
-        this.state = {response: []};
+        this.state = {response: null};
     }
 
     componentDidMount() {
@@ -27,8 +27,9 @@ class BookedFlights extends Component {
     render() {
         return (
             <div className="container">
-                {this.state.response.length === 0 && <div>Loading...</div>}
-                {this.state.response.length > 0 &&
+                {this.state.response === null && <div>Loading...</div>}
+                {this.state.response !== null && this.state.response.length === 0 && <div>You don't have any flights yet</div>}
+                {this.state.response !== null && this.state.response.length > 0 &&
                 (<div>
                     <h1>Your booked flights:</h1>
                     <table className="table-bordered" style={{width: "100%", margin: ".5rem"}}>

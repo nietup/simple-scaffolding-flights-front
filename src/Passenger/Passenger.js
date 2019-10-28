@@ -22,18 +22,14 @@ class Passenger extends Component {
 
         if (!userProfile) {
             getProfile((err, profile) => {
-                this.sendRequest(getAccessToken, values, profile);
-                actions.setSubmitting(false);
-                this.setState({redirectToReferrer: true});
+                this.sendRequest(getAccessToken, values, profile, actions);
             });
         } else {
-            this.sendRequest(getAccessToken, values, userProfile);
-            actions.setSubmitting(false);
-            this.setState({redirectToReferrer: true});
+            this.sendRequest(getAccessToken, values, userProfile, actions);
         }
     };
 
-    sendRequest = (getAccessToken, values, profile) => {
+    sendRequest = (getAccessToken, values, profile, actions) => {
         const payload = {
             "flightNo": this.state.flightNo,
             "firstName": values.firstName,
@@ -49,8 +45,14 @@ class Passenger extends Component {
         const headers = {headers: {Authorization: `Bearer ${getAccessToken()}`}};
 
         axios.post(`${API_URL}/passenger`, payload, headers)
-            .then(response => console.log("Great success"))
-            .catch(error => ToastsStore.error(((error.response || {}).data || {}).message));
+            .then(response => {
+                actions.setSubmitting(false);
+                this.setState({redirectToReferrer: true});
+            })
+            .catch(error => {
+                ToastsStore.error(((error.response || {}).data || {}).message);
+                actions.setSubmitting(false);
+            });
     };
 
     render() {
