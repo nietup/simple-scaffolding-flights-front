@@ -15,14 +15,14 @@ class Search extends Component {
         // axios.post(`${API_URL}/flight/search`, {
         //     "sourceCity": values.startCity,
         //     "destinationCity": values.destinationCity,
-        //     "startTime": values.startDate + "T" + values.startTime + "+00:00",
+        //     "startTime": values.startDate + "T" + values.startTime,
         //     "timeRange": values.timeRange
         // })
         axios.post(`${API_URL}/flight/search`, {
-            "sourceCity": "Warsawabab",
-            "destinationCity": "Dubai",
-            "startTime": "2019-09-19T15:00:00+02:00",
-            "timeRange": 100
+            "sourceCity": "ferfsfsefa",
+            "destinationCity": "ferfsfsefa",
+            "startTime": "2019-10-10T15:00:00",
+            "timeRange": 500
         })
             .then(response => this.setState({response: response.data}))
             .catch(error => this.setState({message: error.message}));
