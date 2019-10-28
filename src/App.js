@@ -78,6 +78,17 @@ class App extends Component {
                         {
                             isAuthenticated() && (
                                 <Button
+                                    bsStyle="primary"
+                                    className="btn-margin"
+                                    onClick={this.goTo.bind(this, 'booked-flights')}
+                                >
+                                    Your flights
+                                </Button>
+                            )
+                        }
+                        {
+                            isAuthenticated() && (
+                                <Button
                                     id="qsLogoutBtn"
                                     bsStyle="primary"
                                     className="btn-margin"
