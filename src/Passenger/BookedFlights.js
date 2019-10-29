@@ -35,6 +35,8 @@ class BookedFlights extends Component {
                     <table className="table-bordered" style={{width: "100%", margin: ".5rem"}}>
                         <thead>
                         <tr>
+                            <th>First name</th>
+                            <th>Last name</th>
                             <th>Flight number</th>
                             <th>Source IATA</th>
                             <th>Destination IATA</th>
@@ -42,14 +44,16 @@ class BookedFlights extends Component {
                             <th>Landing time</th>
                         </tr>
                         </thead>
-                        {this.state.response.map(flight =>
+                        {this.state.response.map(row =>
                             <tbody>
                             <tr>
-                                <td>{flight.flightNo}</td>
-                                <td>{flight.sourceIata}</td>
-                                <td>{flight.destinationIata}</td>
-                                <td>{flight.startTime}</td>
-                                <td>{flight.landingTime}</td>
+                                <td>{row.firstName}</td>
+                                <td>{row.lastName}</td>
+                                <td>{row.flightNo}</td>
+                                <td>{row.sourceIata}</td>
+                                <td>{row.destinationIata}</td>
+                                <td>{row.startTime}</td>
+                                <td>{row.landingTime}</td>
                             </tr>
                             </tbody>
                         )}
