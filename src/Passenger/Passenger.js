@@ -49,10 +49,25 @@ class Passenger extends Component {
                 actions.setSubmitting(false);
                 this.setState({redirectToReferrer: true});
             })
-            .catch(error => {
-                ToastsStore.error(((error.response || {}).data || {}).message);
+            .catch(error => {console.log(((error.response || {}).data || {}).message);
+                ToastsStore.error(this.mapErrorMessage(((error.response || {}).data || {}).message));
                 actions.setSubmitting(false);
             });
+    };
+
+    mapErrorMessage = (message) => {
+        if (message.includes('could not execute statement; SQL [n/a]; constraint'))
+            return "Passport number must be unique";
+        else
+            return message;
+    };
+
+    validateNotNull = (value) => {
+        let error;
+        if (value === '') {
+            error = 'Field cannot be null!';
+        }
+        return error;
     };
 
     render() {
@@ -88,7 +103,13 @@ class Passenger extends Component {
                                 name="firstName"
                                 placeholder="first name"
                                 style={{display: 'block', padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {errors.firstName && touched.firstName &&
+                            <div
+                                style={{color: 'red'}}>
+                                {errors.firstName}
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Last name
                             </label>
@@ -97,7 +118,13 @@ class Passenger extends Component {
                                 name="lastName"
                                 placeholder="last name"
                                 style={{display: 'block', padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {errors.lastName && touched.lastName &&
+                            <div
+                                style={{color: 'red'}}>
+                                {errors.lastName}
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Passport number
                             </label>
@@ -106,7 +133,13 @@ class Passenger extends Component {
                                 name="passport"
                                 placeholder="passport"
                                 style={{display: 'block', padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {errors.passport && touched.passport &&
+                            <div
+                                style={{color: 'red'}}>
+                                {errors.passport}
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Street
                             </label>

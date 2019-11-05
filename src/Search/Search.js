@@ -30,6 +30,14 @@ class Search extends Component {
         actions.setSubmitting(false);
     };
 
+    validateNotNull = (value) => {
+        let error;
+        if (value === '' || value === 0) {
+            error = 'Field cannot be null!';
+        }
+        return error;
+    };
+
     render() {
         return (
             <div>
@@ -47,7 +55,13 @@ class Search extends Component {
                                 name="startCity"
                                 placeholder="Start city"
                                 style={{display: 'block', padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {errors.startCity && touched.startCity &&
+                            <div
+                                style={{color: 'red'}}>
+                                {errors.startCity}
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Destination city
                             </label>
@@ -56,7 +70,13 @@ class Search extends Component {
                                 name="destinationCity"
                                 placeholder="Destination city"
                                 style={{display: 'block', padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {errors.destinationCity && touched.destinationCity &&
+                            <div
+                                style={{color: 'red'}}>
+                                {errors.destinationCity}
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Departure time
                             </label>
@@ -64,12 +84,18 @@ class Search extends Component {
                                 type="date"
                                 name="startDate"
                                 style={{padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
                             <Field
                                 type="time"
                                 name="startTime"
                                 style={{padding: ".5rem", margin: ".5rem"}}
+                                validate={this.validateNotNull}
                             />
+                            {((errors.startDate && touched.startDate) || (errors.startTime && touched.startTime)) &&
+                            <div style={{color: 'red'}}>
+                                Departure time cannot be null!
+                            </div>}
                             <label style={{display: 'block'}}>
                                 Time range
                             </label>
