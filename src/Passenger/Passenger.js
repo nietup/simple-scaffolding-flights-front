@@ -10,11 +10,30 @@ import {Redirect} from "react-router";
 class Passenger extends Component {
     constructor(props) {
         super(props);
-        this.state = {flightNo: "", redirectToReferrer: false};
+        this.state = {
+            flightNo: "",
+            redirectToReferrer: false,
+            flight: null
+        };
     }
 
     componentDidMount() {
-        this.setState({flightNo: queryString.parse(this.props.location.search, {ignoreQueryPrefix: true})['?flightNo']});
+        var flightNo = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true})['?flightNo'];
+        this.setState({flightNo: flightNo});
+
+        const {userProfile, getProfile} = this.props.auth;
+
+        if (!userProfile) {
+            getProfile((err, profile) => {
+                axios.get(`${API_URL}/flight/${flightNo}`)
+                    .then(response => this.setState({flight: response.data}))
+                    .catch(error => this.setState({message: error.message}));
+            });
+        } else {
+            axios.get(`${API_URL}/flight/${flightNo}`)
+                .then(response => this.setState({flight: response.data}))
+                .catch(error => this.setState({message: error.message}));
+        }
     }
 
     handleSubmit = (values, actions) => {
@@ -80,7 +99,32 @@ class Passenger extends Component {
         return (
             <div className={"container"}>
                 <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} store={ToastsStore}/>
-                <h1>Passenger details</h1>
+                <h1>Book flight {this.state.flightNo}</h1>
+                {this.state.flight != null &&
+                (<div>
+                    <table className="table-bordered" style={{width: "100%", margin: ".5rem"}}>
+                        <thead>
+                        <tr>
+                            <th>Flight number</th>
+                            <th>Source IATA</th>
+                            <th>Destination IATA</th>
+                            <th>Start time</th>
+                            <th>Landing time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{this.state.flight.flightNo}</td>
+                            <td>{this.state.flight.sourceIata}</td>
+                            <td>{this.state.flight.destinationIata}</td>
+                            <td>{this.state.flight.startTime}</td>
+                            <td>{this.state.flight.landingTime}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                </div>)}
+                <h2>Passenger data</h2>
                 <Formik
                     initialValues={{
                         firstName: "",
