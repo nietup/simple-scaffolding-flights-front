@@ -18,7 +18,7 @@ class Passenger extends Component {
     }
 
     componentDidMount() {
-        var flightNo = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true})['?flightNo'];
+        const flightNo = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true})['?flightNo'];
         this.setState({flightNo: flightNo});
 
         const {userProfile, getProfile} = this.props.auth;

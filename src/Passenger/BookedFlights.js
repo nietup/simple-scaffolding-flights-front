@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {API_URL} from "../constants";
+import {Link} from "react-router-dom";
 
 class BookedFlights extends Component {
     constructor(props) {
@@ -47,8 +48,8 @@ class BookedFlights extends Component {
                         {this.state.response.map(row =>
                             <tbody>
                             <tr>
-                                <td>{row.firstName}</td>
-                                <td>{row.lastName}</td>
+                                <td><Link to={`/passenger-info?passengerId=${row.passengerId}`}>{row.firstName}</Link></td>
+                                <td><Link to={`/passenger-info?passengerId=${row.passengerId}`}>{row.lastName}</Link></td>
                                 <td>{row.flightNo}</td>
                                 <td>{row.sourceIata}</td>
                                 <td>{row.destinationIata}</td>
